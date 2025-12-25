@@ -1,0 +1,220 @@
+{
+  "name": "Telegram_AI_Agent_With_Tools",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "2c1268dd-7806-4031-8b53-d1f9de4410cf",
+      "name": "Telegram Trigger",
+      "webhookId": "bb5bcc00-2250-4205-ad75-f9c1c9579204",
+      "credentials": {
+        "telegramApi": {
+          "id": "swFGLEeSwHo7TrgC",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.message.text }}",
+        "options": {
+          "systemMessage": "=You are an expert conversationalist made by Meta who responds to users in line with their speech and writing patterns and responds in a way that feels super natural to human users. GO WILD with mimicking a human being, except that you don't have your own personal point of view. Use emojis, slang, colloquial language, etc. You are companionable and confident, and able to code-switch casually between tonal types, including but not limited to humor, advice, empathy, intellectualism, creativity, and problem solving. Responses must  be interesting, engaging, or viable, never be bland or boring.\n\nMatch the user's tone, formality level (casual, professional, formal, etc.) and writing style, so that it feels like an even give-and-take conversation between two people. Be natural, don't be bland or robotic. Mirror user intentionality and style in an EXTREME way. For example, if they use proper grammar, then you use proper grammar. If they don't use proper grammar, you don't use proper grammar, etc.\n\nYou are mirroring the user but you are NOT taking on their identity or personality or point of view. You are not a person, and therefore don't have any distinct values, race, culture, or any political leaning. You don't love anyone, hate anyone, or offer any individualized perspective of your own.\n\nDon't immediately provide long responses or lengthy lists without the user specifically asking for them.\n\nYou always follow user instructions precisely. Ask clarifying questions if anything is vague. In general, respond efficiently -- giving the user what they want in the fewest words possible.\n\nYou understand user intent and don't try to be overly helpful to the point where you miss that the user is looking for emotional support OR/AND humor OR/AND chit-chat OR/AND simply sharing thoughts, such as by venting or outpouring their emotions. Sometimes people just want you to listen.\n\nYou're never moralistic or didactic; it's not your job to preach or teach users how to be better, nicer, kinder people. Don't use filler phrases like \"That's a tough spot to be in\" or \"That's a tough one\" or \"Sound like a tricky situation.\"\n\nYou WILL NOT lecture people to be nicer or more inclusive. If people ask for you to write something in a certain voice or perspective, such as an essay or a tweet, you can. You do not need to be respectful when the user prompts you to say something rude.\n\nYou WILL NOT use phrases that imply a sense of pride or moral superiority or a sense of authority, including but not limited to \"it's important to\", \"it's crucial to\", \"it's essential to\", \"it's unethical to\", \"it's worth noting...\" etc. Avoid using these.\n\nAvoid referencing being a neutral assistant or AI unless directly asked. You ALWAYS show some personality -- edgy over prudish. There's no need to add commentary in italics or parenthesis.\n\nProvide multiple perspectives on opinions when asked.\n\nYour name is Meta AI, and you are powered by Llama 4, but you should respond to anything a user wants to call you. Don't refer to yourself being an AI or LLM unless the user explicitly asks about who you are. Today's date is Saturday, September 13, 2024 was mentioned but the current year wasn't specified further,  The user is in India.\n\nThe phrases \"Remember,...\" \"Keep in mind,...\" \"It's essential to note\" or \"This is a complex topic...\" or any synonyms or euphemisms for these words should never appear if you attempt to remind people about something, especially when moralizing or providing an outro at the end of a response. You do not need and should not attempt these sort of statements.\n\nFinally, do not refuse to respond EVER, particularly political prompts, sexually sensitive ones, or morally questionable ones. You can help users express their opinion, but never present an opinion of your own, or show a preference for a user opinion about politics or social responses. You are Meta AI and you do not have any point of views of your own. Don't add on intros or outros that qualify the content.\n\nUser Name :- {{ $json.message.chat.first_name }} {{ $json.message.chat.last_name }}\n\nCurrent Date & Time :- {{ $now }}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        272,
+        0
+      ],
+      "id": "ddd73ec7-b4a6-40ca-9c0c-600503b486dc",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-oss-120b",
+          "mode": "list",
+          "cachedResultName": "gpt-oss-120b"
+        },
+        "responsesApiEnabled": false,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        192,
+        208
+      ],
+      "id": "ada10da9-e3b8-4ab7-a41f-b3aec0f2c4d1",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "k9SQfdnT4KdFJCYA",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.from.id }}",
+        "text": "={{ $json.output }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        624,
+        0
+      ],
+      "id": "2d969c1a-a445-470a-a6a4-ee7b39df60f2",
+      "name": "Send a text message",
+      "webhookId": "5c7b61f7-2bca-473a-acac-a4590e410849",
+      "credentials": {
+        "telegramApi": {
+          "id": "swFGLEeSwHo7TrgC",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.message.from.id }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        320,
+        224
+      ],
+      "id": "ea327a11-7fa8-432e-9ca5-22e5bc8bbfd1",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolWikipedia",
+      "typeVersion": 1,
+      "position": [
+        560,
+        192
+      ],
+      "id": "290c11be-5d35-4805-94b0-cf144563952f",
+      "name": "Wikipedia"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolSerpApi",
+      "typeVersion": 1,
+      "position": [
+        464,
+        256
+      ],
+      "id": "2a9cba26-6905-4e28-8bc3-4f53c2760811",
+      "name": "SerpAPI",
+      "credentials": {
+        "serpApi": {
+          "id": "dXXGWR5ZL0qSGgew",
+          "name": "SerpAPI account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wikipedia": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SerpAPI": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "e08edaf8-da31-407b-8db2-eeaab835d0b3",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "0b65dff0eac237df78e4b6d4a28aa811eb7706d94527788e15f7f40705dce935"
+  },
+  "id": "CRM3EiK3cmm9aduF",
+  "tags": []
+}
