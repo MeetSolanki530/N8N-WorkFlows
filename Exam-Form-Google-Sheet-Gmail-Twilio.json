@@ -1,0 +1,387 @@
+{
+  "name": "Exam-Form-Google-Sheet-Gmail-Twilio",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Student Assessments Quiz 2026",
+        "formDescription": "This form is used to conduct online quizzes for students to evaluate their understanding of the subject. Responses are automatically recorded and can be graded to generate instant scores and performance insights.",
+        "formFields": {
+          "values": [
+            {
+              "fieldName": "Name",
+              "fieldLabel": "What is Your Name?",
+              "requiredField": true
+            },
+            {
+              "fieldName": "Email",
+              "fieldLabel": "What is Your Email?",
+              "requiredField": true
+            },
+            {
+              "fieldName": "CN",
+              "fieldLabel": "What is your contact number? (With Country Code)",
+              "placeholder": "+912587969875",
+              "requiredField": true
+            },
+            {
+              "fieldName": "q1",
+              "fieldLabel": "Which data structure follows the FIFO (First In, First Out) principle?",
+              "fieldType": "checkbox",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Stack"
+                  },
+                  {
+                    "option": "Queue"
+                  },
+                  {
+                    "option": "Tree"
+                  },
+                  {
+                    "option": "Graph"
+                  }
+                ]
+              },
+              "limitSelection": "exact",
+              "requiredField": true
+            },
+            {
+              "fieldName": "q2",
+              "fieldLabel": "What does CPU stand for?",
+              "fieldType": "checkbox",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Central Process Unit"
+                  },
+                  {
+                    "option": "Central Processing Unit"
+                  },
+                  {
+                    "option": "Computer Personal Unit"
+                  },
+                  {
+                    "option": "Central Program Unit"
+                  }
+                ]
+              },
+              "limitSelection": "exact",
+              "requiredField": true
+            },
+            {
+              "fieldName": "q3",
+              "fieldLabel": "Which of the following is a programming language?",
+              "fieldType": "checkbox",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "HTML"
+                  },
+                  {
+                    "option": "HTTP"
+                  },
+                  {
+                    "option": "Python"
+                  },
+                  {
+                    "option": "URL"
+                  }
+                ]
+              },
+              "limitSelection": "exact",
+              "requiredField": true
+            },
+            {
+              "fieldName": "q4",
+              "fieldLabel": "What is the main purpose of an operating system?",
+              "fieldType": "checkbox",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "To run games"
+                  },
+                  {
+                    "option": "To manage hardware and software resources"
+                  },
+                  {
+                    "option": "To browse the internet"
+                  },
+                  {
+                    "option": "To write code"
+                  }
+                ]
+              },
+              "limitSelection": "exact",
+              "requiredField": true
+            },
+            {
+              "fieldName": "q5",
+              "fieldLabel": "Which of the following is an example of input hardware?",
+              "fieldType": "checkbox",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Monitor"
+                  },
+                  {
+                    "option": "Printer"
+                  },
+                  {
+                    "option": "Keyboard"
+                  },
+                  {
+                    "option": "Speaker"
+                  }
+                ]
+              },
+              "limitSelection": "exact",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.4,
+      "position": [
+        -288,
+        -48
+      ],
+      "id": "4afa850e-374c-4db6-9fd4-19bced9aa689",
+      "name": "On form submission",
+      "webhookId": "a6885d5a-03bb-4124-9dbc-6bbe03ad5ebe"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1HEIxvMNIZGEWZrX4dqpHq8Fmw_RnEdmKfaYZuPfV51U",
+          "mode": "list",
+          "cachedResultName": "Students Quiz 2026",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1HEIxvMNIZGEWZrX4dqpHq8Fmw_RnEdmKfaYZuPfV51U/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1HEIxvMNIZGEWZrX4dqpHq8Fmw_RnEdmKfaYZuPfV51U/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $json.Name }}",
+            "Email": "={{ $json.Email }}",
+            "Contact Number": "={{ $json.CN }}",
+            "Which data structure follows the FIFO (First In, First Out) principle?": "={{ $json.q1[0] }}",
+            "What does CPU stand for?": "={{ $json.q2[0] }}",
+            "Which of the following is a programming language?": "={{ $json.q3[0] }}",
+            "What is the main purpose of an operating system?": "={{ $json.q4[0] }}",
+            "Which of the following is an example of input hardware?": "={{ $json.q5[0] }}"
+          },
+          "matchingColumns": [
+            "Name"
+          ],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Contact Number",
+              "displayName": "Contact Number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Which data structure follows the FIFO (First In, First Out) principle?",
+              "displayName": "Which data structure follows the FIFO (First In, First Out) principle?",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "What does CPU stand for?",
+              "displayName": "What does CPU stand for?",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Which of the following is a programming language?",
+              "displayName": "Which of the following is a programming language?",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "What is the main purpose of an operating system?",
+              "displayName": "What is the main purpose of an operating system?",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Which of the following is an example of input hardware?",
+              "displayName": "Which of the following is an example of input hardware?",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -64,
+        -48
+      ],
+      "id": "64e7d72c-ccfa-4754-a5c0-b940e693c99a",
+      "name": "Append or update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "iDQl3sIvpLdZNQI3",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.Email }}",
+        "subject": "={{ $json.Name }}, Quiz Response Received!!!",
+        "message": "=<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"UTF-8\">\n  <title>Student Quiz Submission</title>\n</head>\n<body style=\"font-family: Arial, sans-serif; background-color: #f6f6f6; padding: 20px;\">\n\n  <div style=\"max-width: 600px; background-color: #ffffff; padding: 20px; border-radius: 6px;\">\n\n    <h2 style=\"color: #333;\">Student Quiz Submission</h2>\n\n    <p><strong>Submission Time: </strong>{{ $now }}</p>\n\n    <hr />\n\n    <h3>Student Details</h3>\n    <p><strong>Name:</strong> {{ $json.Name }}</p>\n    <p><strong>Email:</strong> {{ $json.Email }}</p>\n    <p><strong>Contact Number:</strong> {{ $json['Contact Number'] }}</p>\n\n    <hr />\n\n    <h3>Quiz Responses</h3>\n\n    <p><strong>1. Which data structure follows the FIFO principle?</strong><br />\n    {{ $json['Which data structure follows the FIFO (First In, First Out) principle?'] }}</p>\n\n    <p><strong>2. What does CPU stand for?</strong><br />\n    {{ $json['What does CPU stand for?'] }}</p>\n\n    <p><strong>3. Which of the following is a programming language?</strong><br />\n    {{ $json['Which of the following is a programming language?'] }}</p>\n\n    <p><strong>4. What is the main purpose of an operating system?</strong><br />\n    {{ $json['What is the main purpose of an operating system?'] }}</p>\n\n    <p><strong>5. Which of the following is an example of input hardware?</strong><br />\n    {{ $json['Which of the following is an example of input hardware?'] }}</p>\n\n    <hr />\n\n    <p style=\"font-size: 12px; color: #777;\">\n      This email was automatically generated after form submission.\n    </p>\n\n  </div>\n\n</body>\n</html>\n",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        144,
+        -48
+      ],
+      "id": "030db7d3-7e1c-487f-b967-8b22743df2f7",
+      "name": "Send a message",
+      "webhookId": "108e4a40-d56e-4104-96db-82e57c76bc27",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "1lMaTLWQLCTs7T6U",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "from": "+13347814673",
+        "to": "={{ $('On form submission').item.json.CN }}",
+        "message": "=Hello {{ $('Append or update row in sheet').item.json.Name }},\n\nWe have received your quiz submission successfully.\n\nA copy of your responses has been sent to your email:\n{{ $('Append or update row in sheet').item.json.Email }}\n\nThank you for participating.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 1,
+      "position": [
+        352,
+        -48
+      ],
+      "id": "21048995-73ff-4a88-9fe8-3d3612783a26",
+      "name": "Send an SMS/MMS/WhatsApp message",
+      "credentials": {
+        "twilioApi": {
+          "id": "JM2sSVrdPFF8gGdp",
+          "name": "Twilio account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append or update row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        [
+          {
+            "node": "Send an SMS/MMS/WhatsApp message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "a25bec15-f1be-4059-9a00-558b62ca5801",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "0b65dff0eac237df78e4b6d4a28aa811eb7706d94527788e15f7f40705dce935"
+  },
+  "id": "wMn9qEsKUdBCovd1",
+  "tags": []
+}
